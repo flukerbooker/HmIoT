@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TotalPriceCard extends StatelessWidget {
   @override
@@ -29,6 +30,17 @@ class TotalPriceCard extends StatelessWidget {
                     blurRadius: 10,
                     offset: Offset(0, 3))
               ]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Price"),
+              Container(
+                  child: SvgPicture.asset(
+                'assets/images/thailand-baht.svg',
+                height: 45,
+              ))
+            ],
+          ),
         )
       ],
     );

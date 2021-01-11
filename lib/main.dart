@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
-import 'package:hmiot/pages/home/homepage.dart';
+import 'package:hmiot/screens/home/homepage.dart';
 
 void main() {
   return runApp(HeaterApp());

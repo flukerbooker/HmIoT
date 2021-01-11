@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hmiot/pages/account/account.dart';
-import 'package:hmiot/pages/home/widgets/usages.dart';
+import 'package:hmiot/screens/account/account.dart';
+import 'package:hmiot/screens/home/widgets/usages.dart';
 
 class HomePage extends StatefulWidget {
   @override
