@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hmiot/models/api.dart';
 import 'package:hmiot/models/usagesData.dart';
-import 'package:hmiot/screens/home/widgets/energyManagementCard.dart';
 import 'package:hmiot/screens/home/widgets/totalPriceCard.dart';
 import 'usagesTodayCard.dart';
 
@@ -36,7 +35,7 @@ class Usages extends StatelessWidget {
                 children: [
                   UsagesTodayCard(),
                   TotalPriceCard(),
-                  EnergyManagementCard()
+                  // EnergyManagementCard()
                 ],
               ),
             );

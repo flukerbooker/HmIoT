@@ -6,6 +6,14 @@ class UsagesData {
   const UsagesData(this.id, this.lastRead, this.last7Days);
 }
 
+class UsagesDataDay {
+  final String id;
+  final double price;
+  final String usageDay;
+
+  const UsagesDataDay(this.id, this.price, this.usageDay);
+}
+
 class UsagesDataMonth {
   final String id;
   final double price;
