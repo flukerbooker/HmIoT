@@ -9,14 +9,10 @@ class UsagesTodayCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(
-          top: size.height * 0.03,
-          left: size.width * 0.04,
-          right: size.width * 0.04),
+      margin: EdgeInsets.symmetric(horizontal: size.width * 0.04),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text("Usage Energy", style: Theme.of(context).textTheme.headline4),
           Container(
             margin: EdgeInsets.only(top: size.height * 0.02),
             decoration: BoxDecoration(

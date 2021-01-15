@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hmiot/models/api.dart';
 import 'package:hmiot/models/usagesData.dart';
 import 'package:hmiot/screens/home/widgets/totalPriceCard.dart';
+import 'package:hmiot/screens/home/widgets/usagesCarousel.dart';
 import 'usagesTodayCard.dart';
 
 class Usages extends StatelessWidget {
@@ -19,6 +20,7 @@ class Usages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return FutureBuilder(
         future: _getUsageDataToday(),
         // ignore: missing_return
@@ -33,7 +35,15 @@ class Usages extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  UsagesTodayCard(),
+                  Container(
+                    child: Text("Usage Energy",
+                        style: Theme.of(context).textTheme.headline4),
+                    margin: EdgeInsets.only(
+                        top: size.height * 0.03,
+                        left: size.width * 0.04,
+                        right: size.width * 0.04),
+                  ),
+                  UsagesCarousel(),
                   TotalPriceCard(),
                   // EnergyManagementCard()
                 ],
