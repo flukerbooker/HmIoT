@@ -47,7 +47,7 @@ class TotalPriceCard extends StatelessWidget {
                         Container(
                             child: SvgPicture.asset(
                           'assets/images/thailand-baht.svg',
-                          height: 40,
+                          height: size.height * 0.05,
                           color: colorPrimaryLight,
                         )),
                         Container(
