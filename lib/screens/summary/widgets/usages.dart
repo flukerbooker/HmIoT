@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hmiot/models/api.dart';
 import 'package:hmiot/models/usagesData.dart';
-import 'package:hmiot/screens/home/widgets/totalPriceCard.dart';
-import 'package:hmiot/screens/home/widgets/usagesCarousel.dart';
-import 'usagesTodayCard.dart';
+import 'package:hmiot/screens/summary/widgets/totalPriceCard.dart';
+import 'package:hmiot/screens/summary/widgets/usagesCarousel.dart';
 
 class Usages extends StatelessWidget {
   Future<UsagesData> _getUsageDataToday() async {

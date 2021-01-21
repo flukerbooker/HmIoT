@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
-import 'package:hmiot/screens/home/homepage.dart';
+import 'package:hmiot/screens/dashboard/dashboard.dart';
 
 void main() {
   return runApp(HeaterApp());
@@ -32,7 +32,7 @@ class HeaterApp extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: colorPrimaryLight),
           )),
-      home: HomePage(),
+      home: Dashboard(),
     );
   }
 }
