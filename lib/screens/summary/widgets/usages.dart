@@ -25,27 +25,27 @@ class Usages extends StatelessWidget {
         // ignore: missing_return
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
-            return Container(
-              child: Center(child: Text("Loading Data...")),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasData) {
             return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    child: Text("Usage Energy",
+              child: Container(
+                margin: EdgeInsets.only(
+                    top: size.height * 0.03,
+                    left: size.width * 0.04,
+                    right: size.width * 0.04),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text("Usage Energy",
                         style: Theme.of(context).textTheme.headline4),
-                    margin: EdgeInsets.only(
-                        top: size.height * 0.03,
-                        left: size.width * 0.04,
-                        right: size.width * 0.04),
-                  ),
-                  UsagesCarousel(),
-                  TotalPriceCard(),
-                  // EnergyManagementCard()
-                ],
+                    UsagesCarousel(),
+                    Text("Total Price",
+                        style: Theme.of(context).textTheme.headline4),
+                    TotalPriceCard(),
+                    // EnergyManagementCard()
+                  ],
+                ),
               ),
             );
           }

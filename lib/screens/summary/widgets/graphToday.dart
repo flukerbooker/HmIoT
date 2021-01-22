@@ -2,12 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
 
-class UsageGraph extends StatefulWidget {
+class UsageGraphToday extends StatefulWidget {
   @override
-  _UsageGraphState createState() => _UsageGraphState();
+  _UsageGraphTodayState createState() => _UsageGraphTodayState();
 }
 
-class _UsageGraphState extends State<UsageGraph> {
+class _UsageGraphTodayState extends State<UsageGraphToday> {
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -63,16 +63,16 @@ class _UsageGraphState extends State<UsageGraph> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 100:
-                return '100';
-              case 200:
-                return '200';
-              case 300:
-                return '300';
-              case 400:
-                return '400';
-              case 500:
-                return '500';
+              case 1:
+                return '1';
+              case 2:
+                return '2';
+              case 3:
+                return '3';
+              case 4:
+                return '4';
+              case 5:
+                return '5';
             }
             return '';
           },
@@ -85,10 +85,20 @@ class _UsageGraphState extends State<UsageGraph> {
       minX: 0,
       maxX: 24,
       minY: 0,
-      maxY: 500,
+      maxY: 5,
       lineBarsData: [
         LineChartBarData(
-          spots: [FlSpot(0, 122), FlSpot(8, 256), FlSpot(24, 122)],
+          spots: [
+            FlSpot(0, 3.25),
+            FlSpot(3, 1.26),
+            FlSpot(6, 4.4),
+            FlSpot(9, 1.21),
+            FlSpot(12, 1.26),
+            FlSpot(15, 1.22),
+            FlSpot(18, 3.34),
+            FlSpot(21, 1.22),
+            FlSpot(24, 1.17)
+          ],
           isCurved: true,
           colors: gradientColors,
           barWidth: 3,
