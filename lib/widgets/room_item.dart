@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
-import 'package:hmiot/screens/summary/summary.dart';
+import 'package:hmiot/screens/summary_screen.dart';
 
 class Room extends StatelessWidget {
   final List<Summary> summary = [

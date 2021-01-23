@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/summary/widgets/usages.dart';
+import 'package:hmiot/widgets/usage_item.dart';
 
 class Summary extends StatelessWidget {
   final String roomId;

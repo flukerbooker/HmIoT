@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/dashboard/widgets/room.dart';
+import 'package:hmiot/widgets/room_item.dart';
 
 class Dashboard extends StatelessWidget {
   @override
