@@ -37,7 +37,7 @@ class Usages extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text("Usage Energy",
+                    Text("Energy Usage",
                         style: Theme.of(context).textTheme.headline4),
                     UsagesCarousel(),
                     Text("Total Price",

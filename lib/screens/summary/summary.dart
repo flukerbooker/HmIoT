@@ -5,9 +5,11 @@ class Summary extends StatelessWidget {
   final String roomId;
   final String roomName;
   final String description;
+  final Color colors;
   final double totalUsage;
 
-  Summary(this.roomId, this.roomName, this.description, this.totalUsage);
+  Summary(this.roomId, this.roomName, this.description, this.colors,
+      this.totalUsage);
 
   @override
   Widget build(BuildContext context) {

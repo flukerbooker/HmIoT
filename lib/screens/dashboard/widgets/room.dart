@@ -1,21 +1,29 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hmiot/constants.dart';
 import 'package:hmiot/screens/summary/summary.dart';
-
-import '../../../constants.dart';
 
 class Room extends StatelessWidget {
   final List<Summary> summary = [
-    Summary('1', 'Room01', '+2% than yesterday', 93.6),
-    Summary('2', 'Room02', '-7% than yesterday', 83.6),
-    Summary('3', 'Room03', '+6% than yesterday', 95.5),
-    Summary('4', 'Room04', '-14% than yesterday', 78.1),
-    Summary('5', 'Room05', '-5% than yesterday', 86.2),
-    Summary('6', 'Room06', '+1% than yesterday', 91.4),
-    Summary('7', 'Room07', '+4% than yesterday', 95.6),
-    Summary('8', 'Room08', '+2% than yesterday', 92.2),
-    Summary('9', 'Room09', '-3% than yesterday', 87.9),
+    Summary('1', 'Room01', '+2% than yesterday', Colors.green.withOpacity(0.9),
+        93.6),
+    Summary(
+        '2', 'Room02', '-7% than yesterday', Colors.red.withOpacity(0.9), 83.6),
+    Summary('3', 'Room03', '+6% than yesterday', Colors.green.withOpacity(0.9),
+        95.5),
+    Summary('4', 'Room04', '-14% than yesterday', Colors.red.withOpacity(0.9),
+        78.1),
+    Summary(
+        '5', 'Room05', '-5% than yesterday', Colors.red.withOpacity(0.9), 86.2),
+    Summary('6', 'Room06', '+1% than yesterday', Colors.green.withOpacity(0.9),
+        91.4),
+    Summary('7', 'Room07', '+4% than yesterday', Colors.green.withOpacity(0.9),
+        95.6),
+    Summary('8', 'Room08', '+2% than yesterday', Colors.green.withOpacity(0.9),
+        92.2),
+    Summary(
+        '9', 'Room09', '-3% than yesterday', Colors.red.withOpacity(0.9), 87.9),
   ];
 
   @override
@@ -26,7 +34,7 @@ class Room extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.002, horizontal: size.width * 0.02),
+              vertical: size.height * 0.002, horizontal: size.width * 0.01),
           child: Card(
             child: ListTile(
               onTap: () {
@@ -35,20 +43,22 @@ class Room extends StatelessWidget {
                         summary[index].roomId,
                         summary[index].roomName,
                         summary[index].description,
+                        summary[index].colors,
                         summary[index].totalUsage)));
               },
               title: Text(
                 summary[index].roomName,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
               subtitle: Row(
                 children: [
-                  Icon(Icons.offline_bolt, color: colorGreyLight),
+                  Icon(Icons.offline_bolt, color: summary[index].colors),
                   SizedBox(
                     width: 5,
                   ),
                   Text(
                     summary[index].description,
+                    style: TextStyle(color: summary[index].colors),
                   ),
                 ],
               ),
@@ -57,7 +67,10 @@ class Room extends StatelessWidget {
               ),
               trailing: Text(
                 summary[index].totalUsage.toString() + " kWh",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                    color: colorPrimaryDark),
               ),
             ),
           ),
