@@ -10,19 +10,12 @@ class UsageCarousel extends StatelessWidget {
   final String usageId;
   final String totalTodayUsage;
   final String totalMonthUsage;
-  final String totalPrice;
   final String todayDescription;
   final String monthDescription;
   final Color colors;
 
-  UsageCarousel(
-      this.usageId,
-      this.totalTodayUsage,
-      this.totalMonthUsage,
-      this.totalPrice,
-      this.todayDescription,
-      this.monthDescription,
-      this.colors);
+  UsageCarousel(this.usageId, this.totalTodayUsage, this.totalMonthUsage,
+      this.todayDescription, this.monthDescription, this.colors);
 
   Widget buildUsageCard(BuildContext context, String title, String usage,
       String description, Color colors, Widget graph) {

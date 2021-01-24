@@ -5,6 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hmiot/constants.dart';
 
 class UsagePriceCard extends StatelessWidget {
+  final String totalPrice;
+
+  UsagePriceCard(this.totalPrice);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -49,7 +53,7 @@ class UsagePriceCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '563 Baht',
+                              totalPrice + ' Baht',
                               style: Theme.of(context).textTheme.headline4,
                             ),
                             const Text('You could save it by adjust the energy',

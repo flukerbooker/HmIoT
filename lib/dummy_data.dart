@@ -130,7 +130,7 @@ const DUMMY_USAGES = const [
       monthDescription: '-3% than last month',
       totalTodayUsed: '83.6',
       totalMonthUsed: '2508',
-      totalPrice: '1523',
+      totalPrice: '1368',
       weeks: {
         'week1': {
           'day1': {'totalUsed': 83.6},
@@ -216,7 +216,7 @@ const DUMMY_USAGES = const [
       monthDescription: '+2% than last month',
       totalTodayUsed: '95.5',
       totalMonthUsed: '2865',
-      totalPrice: '1523',
+      totalPrice: '1602',
       weeks: {
         'week1': {
           'day1': {'totalUsed': 95.5},
@@ -302,7 +302,7 @@ const DUMMY_USAGES = const [
       monthDescription: '-6% than last month',
       totalTodayUsed: '78.1',
       totalMonthUsed: '2343',
-      totalPrice: '1523',
+      totalPrice: '1193',
       weeks: {
         'week1': {
           'day1': {'totalUsed': 78.1},
@@ -388,7 +388,7 @@ const DUMMY_USAGES = const [
       monthDescription: '-2% than yesterday',
       totalTodayUsed: '86.2',
       totalMonthUsed: '2586',
-      totalPrice: '1523',
+      totalPrice: '1407',
       weeks: {
         'week1': {
           'day1': {'totalUsed': 86.2},
