@@ -4,7 +4,9 @@ import 'package:hmiot/constants.dart';
 
 class UsageGraph extends StatefulWidget {
   final String type;
-  UsageGraph(this.type);
+  final Map<int, double> graphToday;
+
+  UsageGraph(this.type, this.graphToday);
 
   @override
   _UsageGraphState createState() => _UsageGraphState();
@@ -64,7 +66,6 @@ class _UsageGraphState extends State<UsageGraph> {
       lineBarsData: [
         LineChartBarData(
           spots: data,
-          isCurved: true,
           colors: gradientColors,
           barWidth: 3,
           dotData: FlDotData(
@@ -112,15 +113,31 @@ class _UsageGraphState extends State<UsageGraph> {
         }
         return '';
       }, [
-        FlSpot(0, 3.25),
-        FlSpot(3, 1.26),
-        FlSpot(6, 4.4),
-        FlSpot(9, 1.21),
-        FlSpot(12, 1.26),
-        FlSpot(15, 1.22),
-        FlSpot(18, 3.34),
-        FlSpot(21, 1.22),
-        FlSpot(24, 1.17)
+        FlSpot(0, widget.graphToday[0]),
+        FlSpot(1, widget.graphToday[1]),
+        FlSpot(2, widget.graphToday[2]),
+        FlSpot(3, widget.graphToday[3]),
+        FlSpot(4, widget.graphToday[4]),
+        FlSpot(5, widget.graphToday[5]),
+        FlSpot(6, widget.graphToday[6]),
+        FlSpot(7, widget.graphToday[7]),
+        FlSpot(8, widget.graphToday[8]),
+        FlSpot(9, widget.graphToday[9]),
+        FlSpot(10, widget.graphToday[10]),
+        FlSpot(11, widget.graphToday[11]),
+        FlSpot(12, widget.graphToday[12]),
+        FlSpot(13, widget.graphToday[13]),
+        FlSpot(14, widget.graphToday[14]),
+        FlSpot(15, widget.graphToday[15]),
+        FlSpot(16, widget.graphToday[16]),
+        FlSpot(17, widget.graphToday[17]),
+        FlSpot(18, widget.graphToday[18]),
+        FlSpot(19, widget.graphToday[19]),
+        FlSpot(20, widget.graphToday[20]),
+        FlSpot(21, widget.graphToday[21]),
+        FlSpot(22, widget.graphToday[22]),
+        FlSpot(23, widget.graphToday[23]),
+        FlSpot(24, widget.graphToday[24])
       ], 0, 24, 0, 5);
     }
     if (widget.type == 'Month') {

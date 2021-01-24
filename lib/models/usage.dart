@@ -9,7 +9,7 @@ class UsageData {
   final String totalMonthUsed;
   final String totalPrice;
   final Map<String, dynamic> weeks;
-  final Map<String, dynamic> days;
+  final Map<int, double> days;
 
   const UsageData(
       {@required this.id,

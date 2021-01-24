@@ -12,10 +12,17 @@ class UsageCarousel extends StatelessWidget {
   final String totalMonthUsage;
   final String todayDescription;
   final String monthDescription;
+  final Map<int, double> graphToday;
   final Color colors;
 
-  UsageCarousel(this.usageId, this.totalTodayUsage, this.totalMonthUsage,
-      this.todayDescription, this.monthDescription, this.colors);
+  UsageCarousel(
+      this.usageId,
+      this.totalTodayUsage,
+      this.totalMonthUsage,
+      this.todayDescription,
+      this.monthDescription,
+      this.graphToday,
+      this.colors);
 
   Widget buildUsageCard(BuildContext context, String title, String usage,
       String description, Color colors, Widget graph) {
@@ -125,9 +132,9 @@ class UsageCarousel extends StatelessWidget {
       child: CarouselSlider(
         children: [
           buildUsageCard(context, "Today's Used", totalTodayUsage,
-              todayDescription, colors, UsageGraph('Today')),
+              todayDescription, colors, UsageGraph('Today', graphToday)),
           buildUsageCard(context, "Monthly Used", totalMonthUsage,
-              monthDescription, colors, UsageGraph('Month'))
+              monthDescription, colors, UsageGraph('Month', graphToday))
         ],
         slideTransform: const CubeTransform(rotationAngle: 0),
         slideIndicator: CircularSlideIndicator(

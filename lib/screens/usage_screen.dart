@@ -46,6 +46,7 @@ class UsageScreen extends StatelessWidget {
                     usageData[0].totalMonthUsed,
                     usageData[0].todayDescription,
                     usageData[0].monthDescription,
+                    usageData[0].days,
                     colors),
                 Text("Total Price",
                     style: Theme.of(context).textTheme.headline4),
