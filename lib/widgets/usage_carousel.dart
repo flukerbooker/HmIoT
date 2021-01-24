@@ -6,9 +6,26 @@ import 'package:hmiot/constants.dart';
 import '../screens/statistic_screen.dart';
 import 'usage_graph.dart';
 
-class UsagesCarousel extends StatelessWidget {
+class UsageCarousel extends StatelessWidget {
+  final String usageId;
+  final String totalTodayUsage;
+  final String totalMonthUsage;
+  final String totalPrice;
+  final String todayDescription;
+  final String monthDescription;
+  final Color colors;
+
+  UsageCarousel(
+      this.usageId,
+      this.totalTodayUsage,
+      this.totalMonthUsage,
+      this.totalPrice,
+      this.todayDescription,
+      this.monthDescription,
+      this.colors);
+
   Widget buildUsageCard(BuildContext context, String title, String usage,
-      String description, Widget graph) {
+      String description, Color colors, Widget graph) {
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -50,12 +67,12 @@ class UsagesCarousel extends StatelessWidget {
                         },
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               "Details",
                               style: TextStyle(
                                   fontSize: 16, color: colorPrimaryLight),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward,
                               color: colorPrimaryLight,
                               size: 18,
@@ -74,9 +91,9 @@ class UsagesCarousel extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    Text(
+                    const Text(
                       " kWh",
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     )
                   ],
                 ),
@@ -84,14 +101,14 @@ class UsagesCarousel extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.offline_bolt,
-                      color: colorGreyLight,
+                      color: colors,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Text(
                       description,
-                      style: TextStyle(color: colorGreyLight),
+                      style: TextStyle(color: colors),
                     ),
                   ],
                 ),
@@ -114,12 +131,12 @@ class UsagesCarousel extends StatelessWidget {
       height: size.height * 0.52,
       child: CarouselSlider(
         children: [
-          buildUsageCard(context, "Today's Used", "93.6", "+2% than yesterday",
-              UsageGraph('Today')),
-          buildUsageCard(context, "Monthly Used", "2808", "+6% than last month",
-              UsageGraph('Month'))
+          buildUsageCard(context, "Today's Used", totalTodayUsage,
+              todayDescription, colors, UsageGraph('Today')),
+          buildUsageCard(context, "Monthly Used", totalMonthUsage,
+              monthDescription, colors, UsageGraph('Month'))
         ],
-        slideTransform: CubeTransform(rotationAngle: 0),
+        slideTransform: const CubeTransform(rotationAngle: 0),
         slideIndicator: CircularSlideIndicator(
           indicatorBackgroundColor: colorGreyLight,
           currentIndicatorColor: colorBlack,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hmiot/constants.dart';
 
-class TotalPriceCard extends StatelessWidget {
+class UsagePriceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,7 +52,7 @@ class TotalPriceCard extends StatelessWidget {
                               '563 Baht',
                               style: Theme.of(context).textTheme.headline4,
                             ),
-                            Text('You could save it by adjust the energy',
+                            const Text('You could save it by adjust the energy',
                                 style: TextStyle(color: colorGreyLight))
                           ],
                         ),

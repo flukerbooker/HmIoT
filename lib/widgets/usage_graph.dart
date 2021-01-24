@@ -163,7 +163,7 @@ class _UsageGraphState extends State<UsageGraph> {
         FlSpot(27, 86.5),
       ], 0, 27, 0, 150);
     } else {
-      return Center(child: Text('Not have graph yet'));
+      return const Center(child: const Text('Not have graph yet'));
     }
   }
 }

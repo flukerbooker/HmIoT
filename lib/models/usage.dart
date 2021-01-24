@@ -1,23 +1,24 @@
-class UsagesData {
-  final int id;
-  final String lastRead;
-  final List last7Days;
+import 'package:flutter/foundation.dart';
 
-  const UsagesData(this.id, this.lastRead, this.last7Days);
-}
-
-class UsagesDataDay {
+class UsageData {
   final String id;
-  final double price;
-  final String usageDay;
+  final String room;
+  final String todayDescription;
+  final String monthDescription;
+  final String totalTodayUsed;
+  final String totalMonthUsed;
+  final String totalPrice;
+  final Map<String, dynamic> weeks;
+  final Map<String, dynamic> days;
 
-  const UsagesDataDay(this.id, this.price, this.usageDay);
-}
-
-class UsagesDataMonth {
-  final String id;
-  final double price;
-  final String usageMonth;
-
-  const UsagesDataMonth(this.id, this.price, this.usageMonth);
+  const UsageData(
+      {@required this.id,
+      @required this.room,
+      @required this.todayDescription,
+      @required this.monthDescription,
+      @required this.totalTodayUsed,
+      @required this.totalMonthUsed,
+      @required this.totalPrice,
+      @required this.weeks,
+      @required this.days});
 }
