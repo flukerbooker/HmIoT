@@ -8,7 +8,7 @@ class Room {
   final Color colors;
   final String usage;
 
-  const Room(
+  Room(
       {@required this.id,
       @required this.name,
       @required this.description,

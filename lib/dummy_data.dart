@@ -3,43 +3,16 @@ import 'package:flutter/material.dart';
 import './models/room.dart';
 import './models/usage.dart';
 
-const DUMMY_ROOMS = const [
-  Room(
-      id: 'r1',
-      name: 'Room01',
-      description: '+2% than yesterday',
-      colors: Colors.red,
-      usage: '93.6'),
-  Room(
-      id: 'r2',
-      name: 'Room02',
-      description: '-6% than yesterday',
-      colors: Colors.green,
-      usage: '83.6'),
-  Room(
-      id: 'r3',
-      name: 'Room03',
-      description: '+4% than yesterday',
-      colors: Colors.red,
-      usage: '95.5'),
-  Room(
-      id: 'r4',
-      name: 'Room04',
-      description: '-12% than yesterday',
-      colors: Colors.green,
-      usage: '78.1'),
-  Room(
-      id: 'r5',
-      name: 'Room05',
-      description: '-4% than yesterday',
-      colors: Colors.green,
-      usage: '86.2'),
-];
-
-const DUMMY_USAGES = const [
+final dummyData = [
   UsageData(
-      id: 'u1',
-      room: 'r1',
+      id: 1,
+      room: Room(
+        id: 'r1',
+        name: 'Room01',
+        description: '+2% than yesterday',
+        colors: Colors.red,
+        usage: '93.6',
+      ),
       todayDescription: '+2% than yesterday',
       monthDescription: '+1% than last month',
       totalTodayUsed: '93.6',
@@ -116,8 +89,14 @@ const DUMMY_USAGES = const [
         24: 0,
       }),
   UsageData(
-      id: 'u2',
-      room: 'r2',
+      id: 2,
+      room: Room(
+        id: 'r2',
+        name: 'Room02',
+        description: '-6% than yesterday',
+        colors: Colors.green,
+        usage: '83.6',
+      ),
       todayDescription: '-6% than yesterday',
       monthDescription: '-3% than last month',
       totalTodayUsed: '83.6',
@@ -194,8 +173,14 @@ const DUMMY_USAGES = const [
         24: 3.48,
       }),
   UsageData(
-      id: 'u3',
-      room: 'r3',
+      id: 3,
+      room: Room(
+        id: 'r3',
+        name: 'Room03',
+        description: '+4% than yesterday',
+        colors: Colors.red,
+        usage: '95.5',
+      ),
       todayDescription: '+4% than yesterday',
       monthDescription: '+2% than last month',
       totalTodayUsed: '95.5',
@@ -272,8 +257,14 @@ const DUMMY_USAGES = const [
         24: 3.98,
       }),
   UsageData(
-      id: 'u4',
-      room: 'r4',
+      id: 4,
+      room: Room(
+        id: 'r4',
+        name: 'Room04',
+        description: '-12% than yesterday',
+        colors: Colors.green,
+        usage: '78.1',
+      ),
       todayDescription: '-12% than yesterday',
       monthDescription: '-6% than last month',
       totalTodayUsed: '78.1',
@@ -350,8 +341,14 @@ const DUMMY_USAGES = const [
         24: 3.25,
       }),
   UsageData(
-      id: 'u5',
-      room: 'r5',
+      id: 5,
+      room: Room(
+        id: 'r5',
+        name: 'Room05',
+        description: '-4% than yesterday',
+        colors: Colors.green,
+        usage: '86.2',
+      ),
       todayDescription: '-4% than yesterday',
       monthDescription: '-2% than yesterday',
       totalTodayUsed: '86.2',

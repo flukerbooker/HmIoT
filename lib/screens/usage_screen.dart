@@ -1,18 +1,30 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hmiot/dummy_data.dart';
+import 'package:hmiot/models/api.dart';
+import 'package:hmiot/models/usage.dart';
 import 'package:hmiot/widgets/usage_carousel.dart';
 import 'package:hmiot/widgets/usage_price_card.dart';
 
 class UsageScreen extends StatelessWidget {
   static const routeName = '/usage';
 
-  // Future<UsagesData> _getUsageDataToday() async {
-  //   var data = await CallApi().getDataWithoutToken('dashboardUpdate');
-  //   var jsonData = json.decode(data.body);
-  //   UsagesData usagesDataToday = UsagesData(
-  //       jsonData["device_id"], jsonData["LastRead"], jsonData["last7Days"]);
-  //   return usagesDataToday;
-  // }
+  Future<UsageData> _getUsageDataToday() async {
+    var data = await CallApi().getDataWithoutToken('dashboardUpdate');
+    var jsonData = json.decode(data.body);
+    UsageData usagesDataToday = UsageData(
+      id: jsonData['device_id'],
+      room: null,
+      todayDescription: '',
+      monthDescription: '',
+      totalTodayUsed: jsonData['LastRead'],
+      totalMonthUsed: null,
+      totalPrice: null,
+      weeks: null,
+      days: null,
+    );
+    return usagesDataToday;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,37 +34,50 @@ class UsageScreen extends StatelessWidget {
     final roomId = routeArgs['id'];
     final roomName = routeArgs['name'];
     final colors = routeArgs['color'];
-    final usageData = DUMMY_USAGES.where((usage) {
-      return usage.room.contains(roomId);
+    final usageData = dummyData.where((usage) {
+      return usage.room.id.contains(roomId);
     }).toList();
     return Scaffold(
         appBar: AppBar(
           title: Text(roomName),
         ),
         body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(
-                top: size.height * 0.03,
-                left: size.width * 0.04,
-                right: size.width * 0.04),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text("Energy Usage",
-                    style: Theme.of(context).textTheme.headline4),
-                UsageCarousel(
-                    usageData[0].id,
-                    usageData[0].totalTodayUsed,
-                    usageData[0].totalMonthUsed,
-                    usageData[0].todayDescription,
-                    usageData[0].monthDescription,
-                    usageData[0].days,
-                    colors),
-                Text("Total Price",
-                    style: Theme.of(context).textTheme.headline4),
-                UsagePriceCard(usageData[0].totalPrice),
-              ],
-            ),
+          child: FutureBuilder(
+            future: _getUsageDataToday(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else {
+                return Container(
+                  margin: EdgeInsets.only(
+                      top: size.height * 0.03,
+                      left: size.width * 0.04,
+                      right: size.width * 0.04),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text("Energy Usage",
+                          style: Theme.of(context).textTheme.headline4),
+                      UsageCarousel(
+                          snapshot.data.id,
+                          snapshot.data.totalTodayUsed,
+                          usageData[0].totalMonthUsed,
+                          usageData[0].todayDescription,
+                          usageData[0].monthDescription,
+                          usageData[0].days,
+                          colors),
+                      Text("Total Price",
+                          style: Theme.of(context).textTheme.headline4),
+                      UsagePriceCard(usageData[0].totalPrice),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
         ));
   }

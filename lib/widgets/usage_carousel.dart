@@ -7,7 +7,7 @@ import '../screens/statistic_screen.dart';
 import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
-  final String usageId;
+  final int usageId;
   final String totalTodayUsage;
   final String totalMonthUsage;
   final String todayDescription;

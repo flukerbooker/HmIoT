@@ -16,9 +16,14 @@ class DashboardScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.symmetric(
             vertical: size.height * 0.002, horizontal: size.width * 0.01),
-        children: DUMMY_ROOMS
-            .map((roomData) => RoomItem(roomData.id, roomData.name,
-                roomData.description, roomData.colors, roomData.usage))
+        children: dummyData
+            .map((usageData) => RoomItem(
+                  usageData.room.id,
+                  usageData.room.name,
+                  usageData.room.description,
+                  usageData.room.colors,
+                  usageData.room.usage,
+                ))
             .toList(),
       ),
     );
