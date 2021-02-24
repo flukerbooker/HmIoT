@@ -5,7 +5,7 @@ import './models/usage.dart';
 
 final dummyData = [
   UsageData(
-      id: 1,
+      id: "1",
       room: Room(
         id: 'r1',
         name: 'Room01',
@@ -15,8 +15,8 @@ final dummyData = [
       ),
       todayDescription: '+2% than yesterday',
       monthDescription: '+1% than last month',
-      totalTodayUsed: '93.6',
-      totalMonthUsed: '2808',
+      totalTodayUsed: 93,
+      totalMonthUsed: 2808,
       totalPrice: '1523',
       weeks: {
         'week1': {
@@ -63,33 +63,33 @@ final dummyData = [
       },
       days: {
         0: 3.9,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 4.26,
-        7: 0,
-        8: 0,
-        9: 0,
-        10: 0,
-        11: 0,
-        12: 0,
-        13: 0,
-        14: 0,
-        15: 0,
-        16: 0,
-        17: 0,
-        18: 0,
-        19: 0,
-        20: 0,
-        21: 0,
-        22: 3.92,
-        23: 0,
-        24: 0,
+        1: 3.9,
+        2: 3.9,
+        3: 3.9,
+        4: 3.9,
+        5: 3.9,
+        6: 8.16,
+        7: 8.16,
+        8: 8.16,
+        9: 8.16,
+        10: 8.16,
+        11: 8.16,
+        12: 8.16,
+        13: 8.16,
+        14: 8.16,
+        15: 8.16,
+        16: 8.16,
+        17: 8.16,
+        18: 8.16,
+        19: 8.16,
+        20: 8.16,
+        21: 8.16,
+        22: 12.08,
+        23: 12.08,
+        24: 12.08,
       }),
   UsageData(
-      id: 2,
+      id: "2",
       room: Room(
         id: 'r2',
         name: 'Room02',
@@ -99,8 +99,8 @@ final dummyData = [
       ),
       todayDescription: '-6% than yesterday',
       monthDescription: '-3% than last month',
-      totalTodayUsed: '83.6',
-      totalMonthUsed: '2508',
+      totalTodayUsed: 83,
+      totalMonthUsed: 2508,
       totalPrice: '1368',
       weeks: {
         'week1': {
@@ -173,7 +173,7 @@ final dummyData = [
         24: 3.48,
       }),
   UsageData(
-      id: 3,
+      id: "3",
       room: Room(
         id: 'r3',
         name: 'Room03',
@@ -183,8 +183,8 @@ final dummyData = [
       ),
       todayDescription: '+4% than yesterday',
       monthDescription: '+2% than last month',
-      totalTodayUsed: '95.5',
-      totalMonthUsed: '2865',
+      totalTodayUsed: 95,
+      totalMonthUsed: 2865,
       totalPrice: '1602',
       weeks: {
         'week1': {
@@ -257,7 +257,7 @@ final dummyData = [
         24: 3.98,
       }),
   UsageData(
-      id: 4,
+      id: "4",
       room: Room(
         id: 'r4',
         name: 'Room04',
@@ -267,8 +267,8 @@ final dummyData = [
       ),
       todayDescription: '-12% than yesterday',
       monthDescription: '-6% than last month',
-      totalTodayUsed: '78.1',
-      totalMonthUsed: '2343',
+      totalTodayUsed: 78,
+      totalMonthUsed: 2343,
       totalPrice: '1193',
       weeks: {
         'week1': {
@@ -341,7 +341,7 @@ final dummyData = [
         24: 3.25,
       }),
   UsageData(
-      id: 5,
+      id: "5",
       room: Room(
         id: 'r5',
         name: 'Room05',
@@ -351,8 +351,8 @@ final dummyData = [
       ),
       todayDescription: '-4% than yesterday',
       monthDescription: '-2% than yesterday',
-      totalTodayUsed: '86.2',
-      totalMonthUsed: '2586',
+      totalTodayUsed: 86,
+      totalMonthUsed: 2586,
       totalPrice: '1407',
       weeks: {
         'week1': {

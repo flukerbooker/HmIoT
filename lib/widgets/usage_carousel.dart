@@ -7,9 +7,9 @@ import '../screens/statistic_screen.dart';
 import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
-  final int usageId;
-  final String totalTodayUsage;
-  final String totalMonthUsage;
+  final String usageId;
+  final int totalTodayUsage;
+  final int totalMonthUsage;
   final String todayDescription;
   final String monthDescription;
   final Map<int, double> graphToday;
@@ -24,7 +24,7 @@ class UsageCarousel extends StatelessWidget {
       this.graphToday,
       this.colors);
 
-  Widget buildUsageCard(BuildContext context, String title, String usage,
+  Widget buildUsageCard(BuildContext context, String title, int usage,
       String description, Color colors, Widget graph) {
     Size size = MediaQuery.of(context).size;
     return Column(
@@ -87,7 +87,7 @@ class UsageCarousel extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      usage,
+                      usage.toString(),
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),

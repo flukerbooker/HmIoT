@@ -5,19 +5,25 @@ import 'package:hmiot/models/api.dart';
 import 'package:hmiot/models/usage.dart';
 import 'package:hmiot/widgets/usage_carousel.dart';
 import 'package:hmiot/widgets/usage_price_card.dart';
+import 'package:intl/intl.dart';
 
 class UsageScreen extends StatelessWidget {
   static const routeName = '/usage';
 
   Future<UsageData> _getUsageDataToday() async {
-    var data = await CallApi().getDataWithoutToken('dashboardUpdate');
+    DateTime now = DateTime.now();
+    String today = DateFormat('yyyy-MM-dd').format(now);
+    print(today);
+    var data = await CallApi()
+        .getDataWithoutToken('getUsage?type=day/month&date=$today&id=1');
     var jsonData = json.decode(data.body);
+    print(jsonData);
     UsageData usagesDataToday = UsageData(
       id: jsonData['device_id'],
       room: null,
       todayDescription: '',
       monthDescription: '',
-      totalTodayUsed: jsonData['LastRead'],
+      totalTodayUsed: jsonData['results']['value'],
       totalMonthUsed: null,
       totalPrice: null,
       weeks: null,
@@ -46,10 +52,14 @@ class UsageScreen extends StatelessWidget {
             future: _getUsageDataToday(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
-                return Container(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
                 );
               } else {
                 return Container(

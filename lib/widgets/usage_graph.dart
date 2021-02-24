@@ -100,16 +100,16 @@ class _UsageGraphState extends State<UsageGraph> {
         return '';
       }, (value) {
         switch (value.toInt()) {
-          case 1:
-            return '1';
-          case 2:
-            return '2';
           case 3:
             return '3';
-          case 4:
-            return '4';
-          case 5:
-            return '5';
+          case 6:
+            return '6';
+          case 9:
+            return '9';
+          case 12:
+            return '12';
+          case 15:
+            return '15';
         }
         return '';
       }, [
@@ -138,7 +138,7 @@ class _UsageGraphState extends State<UsageGraph> {
         FlSpot(22, widget.graphToday[22]),
         FlSpot(23, widget.graphToday[23]),
         FlSpot(24, widget.graphToday[24])
-      ], 0, 24, 0, 5);
+      ], 0, 24, 0, 15);
     }
     if (widget.type == 'Month') {
       return buildGraph((value) {

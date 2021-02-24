@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:hmiot/models/room.dart';
 
 class UsageData {
-  final int id;
+  final String id;
   final Room room;
   final String todayDescription;
   final String monthDescription;
-  final String totalTodayUsed;
-  final String totalMonthUsed;
+  final int totalTodayUsed;
+  final int totalMonthUsed;
   final String totalPrice;
   final Map<String, dynamic> weeks;
   final Map<int, double> days;
