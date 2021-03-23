@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
 import 'package:hmiot/screens/dashboard_screen.dart';
+import 'package:hmiot/screens/login_screen.dart';
+import 'package:hmiot/screens/signup_screen.dart';
 import 'package:hmiot/screens/usage_screen.dart';
 
 void main() {
@@ -37,7 +39,10 @@ class HeaterApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: colorPrimaryLight),
           )),
+      initialRoute: '/login',
       routes: {
+        LoginScreen.routeName: (ctx) => LoginScreen(),
+        SignupScreen.routeName: (ctx) => SignupScreen(),
         DashboardScreen.routeName: (ctx) => DashboardScreen(),
         UsageScreen.routeName: (ctx) => UsageScreen()
       },

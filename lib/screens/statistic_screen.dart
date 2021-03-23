@@ -5,6 +5,8 @@ import 'package:hmiot/widgets/statistic_graph.dart';
 import '../constants.dart';
 
 class StatisticScreen extends StatelessWidget {
+  static const routeName = '/usage/statistic';
+
   final String title;
   final List<Statistic> statistic = [
     Statistic(count: 1262, month: 'Jan'),

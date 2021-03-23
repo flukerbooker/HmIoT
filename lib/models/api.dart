@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
   //API URL
-  final String _url = 'http://zielu922.vot.pl/api/';
+  final String _url = 'http://zielu922.vot.pl/api/auth/';
 
   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;

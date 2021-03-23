@@ -3,7 +3,7 @@ import 'package:hmiot/dummy_data.dart';
 import 'package:hmiot/widgets/room_item.dart';
 
 class DashboardScreen extends StatelessWidget {
-  static const routeName = '/';
+  static const routeName = '/dashboard';
 
   @override
   Widget build(BuildContext context) {
