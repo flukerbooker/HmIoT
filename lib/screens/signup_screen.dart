@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/dashboard_screen.dart';
 import 'package:hmiot/screens/login_screen.dart';
 import '../models/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -233,10 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
 
-      Navigator.push(
-          context,
-          new MaterialPageRoute(
-              builder: (context) => DashboardScreen()));
+      Navigator.pushReplacementNamed(context, "/dashboard");
     }
 
     setState(() {

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/dashboard_screen.dart';
 import 'package:hmiot/screens/signup_screen.dart';
 import '../models/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,8 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   ScaffoldState scaffoldState;
 
-  _showMsg(msg) {
-    //
+  void _showMsg(msg) {
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
     final snackBar = SnackBar(
       content: Text(msg),
       action: SnackBarAction(
@@ -30,12 +29,14 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   @override
   Widget build(BuildContext context) {
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -53,17 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
             Positioned(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-//                    Image.asset(
-//                      "assets/logo-retina.png",
-//                      scale: 2.0,
-//                    ),
                     SizedBox(
                       height: 40.0,
                     ),
@@ -173,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(20.0)),
-                                    onPressed:  _signUp,
+                                    onPressed: _signUp,
                                   ),
                                 ),
                               ],
@@ -194,9 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _signUp() {
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => SignupScreen()));
+        context, new MaterialPageRoute(builder: (context) => SignupScreen()));
   }
 
   void _login() async {
@@ -209,7 +203,6 @@ class _LoginScreenState extends State<LoginScreen> {
       'password': passwordController.text
     };
 
-
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);
     print(body);
@@ -218,10 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
         SharedPreferences localStorage = await SharedPreferences.getInstance();
         localStorage.setString('token', body['token']);
         localStorage.setString('user', json.encode(body['user']));
-        Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (context) => DashboardScreen()));
+        Navigator.pushReplacementNamed(context, "/dashboard");
       } else {
         _showMsg(body['message']);
       }
