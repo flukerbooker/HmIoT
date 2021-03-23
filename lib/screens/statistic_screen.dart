@@ -54,11 +54,12 @@ class StatisticScreen extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: [
-                        Card(child: ListTile(
-                          title: Text('January',  style: const TextStyle(
+                        Card(
+                          child: ListTile(
+                            title: Text('January',  style: const TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
-                          trailing: Text('1262' + " kWh", style: const TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                            trailing: Text('1262' + " kWh", style: const TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
                         ),),
                         Card(child: ListTile(
                           title: Text('Feburary',  style: const TextStyle(
@@ -66,23 +67,26 @@ class StatisticScreen extends StatelessWidget {
                           trailing: Text('1482' + " kWh", style: const TextStyle(
                             fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark), ),
                         ),),
-                        Card(child: ListTile(
-                          title: Text('March', style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
-                          trailing: Text('1654' + " kWh", style: const TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                        Card(
+                          child: ListTile(
+                            title: Text('March', style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                            trailing: Text('1654' + " kWh", style: const TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
                         ),),
-                        Card(child: ListTile(
-                          title: Text('April', style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
-                          trailing: Text('1566' + " kWh", style: const TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                        Card(
+                          child: ListTile(
+                            title: Text('April', style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                            trailing: Text('1566' + " kWh", style: const TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
                         ),),
-                        Card(child: ListTile(
-                          title: Text('June', style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
-                          trailing: Text('1328' + " kWh", style: const TextStyle(
-                            fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                        Card(
+                          child: ListTile(
+                            title: Text('June', style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
+                            trailing: Text('1328' + " kWh", style: const TextStyle(
+                              fontSize: 19, fontWeight: FontWeight.bold, color: colorPrimaryDark),),
                         ),),
                       ],
                   ))
