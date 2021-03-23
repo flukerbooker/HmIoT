@@ -34,7 +34,7 @@ class HeaterApp extends StatelessWidget {
                 color: colorPrimaryLight),
             headline6: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
                 color: colorPrimaryLight),
           )),
       routes: {

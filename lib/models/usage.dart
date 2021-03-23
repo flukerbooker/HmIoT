@@ -21,5 +21,5 @@ class UsageData {
       @required this.totalMonthUsed,
       @required this.totalPrice,
       @required this.weeks,
-      @required this.days});
+      @required this.days,});
 }
