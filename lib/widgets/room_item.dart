@@ -38,7 +38,7 @@ class RoomItem extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Text('$description%than yesterday', style: TextStyle(color: colors))
+          Text('$description% than yesterday', style: TextStyle(color: colors))
         ],
       ),
       trailing: Text(usage.toString() + " kWh",

@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hmiot/constants.dart';
-import 'package:hmiot/dummy_data.dart';
 import 'package:hmiot/models/api.dart';
-import 'package:hmiot/models/room.dart';
 import 'package:hmiot/widgets/room_item.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -62,15 +60,7 @@ class DashboardScreen extends StatelessWidget {
                           : colorGreen,
                       snapshot.data[index]["value"]);
                 },
-              ); // children: dummyData
-              //     .map((usageData) => RoomItem(
-              //           usageData.room.id,
-              //           usageData.room.name,
-              //           usageData.room.description,
-              //           usageData.room.colors,
-              //           usageData.room.usage,
-              //         ))
-              //     .toList(),,
+              );
             }
           }),
     );
