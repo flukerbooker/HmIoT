@@ -4,11 +4,11 @@ import 'package:hmiot/constants.dart';
 import 'package:hmiot/screens/usage_screen.dart';
 
 class RoomItem extends StatelessWidget {
-  final String id;
+  final int id;
   final String name;
-  final String description;
+  final int description;
   final Color colors;
-  final String usage;
+  final int usage;
 
   RoomItem(this.id, this.name, this.description, this.colors, this.usage);
 
@@ -38,10 +38,10 @@ class RoomItem extends StatelessWidget {
           SizedBox(
             width: 5,
           ),
-          Text(description, style: TextStyle(color: colors))
+          Text('$description%than yesterday', style: TextStyle(color: colors))
         ],
       ),
-      trailing: Text(usage + " kWh",
+      trailing: Text(usage.toString() + " kWh",
           style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.bold,

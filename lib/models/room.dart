@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Room {
-  final String id;
+  int id;
   final String name;
   final String description;
   final Color colors;

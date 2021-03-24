@@ -8,7 +8,7 @@ final dummyData = [
   UsageData(
     id: "1",
     room: Room(
-      id: 'r1',
+      id: 1,
       name: 'Room01',
       description: '+2% than yesterday',
       colors: Colors.red,
@@ -93,7 +93,7 @@ final dummyData = [
   UsageData(
     id: "2",
     room: Room(
-      id: 'r2',
+      id: 2,
       name: 'Room02',
       description: '-6% than yesterday',
       colors: Colors.green,
@@ -178,7 +178,7 @@ final dummyData = [
   UsageData(
       id: "3",
       room: Room(
-        id: 'r3',
+        id: 3,
         name: 'Room03',
         description: '+4% than yesterday',
         colors: Colors.red,
@@ -262,7 +262,7 @@ final dummyData = [
   UsageData(
       id: "4",
       room: Room(
-        id: 'r4',
+        id: 4,
         name: 'Room04',
         description: '-12% than yesterday',
         colors: Colors.green,
@@ -346,7 +346,7 @@ final dummyData = [
   UsageData(
       id: "5",
       room: Room(
-        id: 'r5',
+        id: 5,
         name: 'Room05',
         description: '-4% than yesterday',
         colors: Colors.green,

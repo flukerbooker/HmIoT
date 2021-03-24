@@ -36,12 +36,12 @@ class UsageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
     final roomId = routeArgs['id'];
     final roomName = routeArgs['name'];
     final colors = routeArgs['color'];
     final usageData = dummyData.where((usage) {
-      return usage.room.id.contains(roomId);
+      return usage.room.id = roomId;
     }).toList();
     return Scaffold(
         appBar: AppBar(
