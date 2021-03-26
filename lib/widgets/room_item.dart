@@ -25,30 +25,34 @@ class RoomItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        margin: EdgeInsets.only(bottom: 1),
         child: ListTile(
-      onTap: () => selectRoom(context),
-      title: Text(
-        name,
-        style: const TextStyle(
-            fontSize: 17, fontWeight: FontWeight.bold, color: colorPrimaryDark),
-      ),
-      subtitle: Row(
-        children: [
-          Icon(Icons.offline_bolt, color: colors),
-          SizedBox(
-            width: 5,
+          onTap: () => selectRoom(context),
+          title: Text(
+            name,
+            style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: colorPrimaryDark),
           ),
-          Text('$description% than yesterday', style: TextStyle(color: colors))
-        ],
-      ),
-      trailing: Text(usage.toString() + " kWh",
-          style: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.bold,
-              color: colorPrimaryDark)),
-      leading: const CircleAvatar(
-        child: const Icon(Icons.apartment),
-      ),
-    ));
+          subtitle: Row(
+            children: [
+              Icon(Icons.offline_bolt, color: colors),
+              SizedBox(
+                width: 5,
+              ),
+              Text('$description% than yesterday',
+                  style: TextStyle(color: colors))
+            ],
+          ),
+          trailing: Text(usage.toString() + " kWh",
+              style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  color: colorPrimaryDark)),
+          leading: const CircleAvatar(
+            child: const Icon(Icons.apartment),
+          ),
+        ));
   }
 }
