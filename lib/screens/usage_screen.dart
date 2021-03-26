@@ -19,7 +19,7 @@ class UsageScreen extends StatelessWidget {
     final roomId = routeArgs['id'];
     print(roomId);
     var data = await CallApi()
-        .getDataWithoutToken('getUsage?type=day/month&date=$today&id=$roomId');
+        .getDataWithToken('getUsage?type=day/month&date=$today&id=$roomId');
     var jsonData = json.decode(data.body);
     print(jsonData);
     UsageData usagesDataToday = UsageData(
@@ -43,7 +43,7 @@ class UsageScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
     final roomId = routeArgs['id'];
     final roomName = routeArgs['name'];
-    final roomDescription = routeArgs['description'];
+    final todayDescription = routeArgs['description'];
     final colors = routeArgs['color'];
     final usageData = dummyData.where((usage) {
       return usage.room.id == roomId ? true : false;
@@ -74,7 +74,7 @@ class UsageScreen extends StatelessWidget {
                         snapshot.data.id,
                         snapshot.data.totalTodayUsed,
                         usageData[0].totalMonthUsed,
-                        '$roomDescription% than yesterday',
+                        '$todayDescription% than yesterday',
                         usageData[0].monthDescription,
                         usageData[0].days,
                         colors),

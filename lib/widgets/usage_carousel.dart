@@ -63,7 +63,7 @@ class UsageCarousel extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  new StatisticScreen("Statistic")));
+                                  new StatisticScreen()));
                         },
                         child: Row(
                           children: [

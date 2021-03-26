@@ -5,13 +5,38 @@ import 'package:hmiot/constants.dart';
 import 'package:hmiot/screens/dashboard_screen.dart';
 import 'package:hmiot/screens/login_screen.dart';
 import 'package:hmiot/screens/signup_screen.dart';
+import 'package:hmiot/screens/statistic_screen.dart';
 import 'package:hmiot/screens/usage_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   return runApp(HeaterApp());
 }
 
-class HeaterApp extends StatelessWidget {
+class HeaterApp extends StatefulWidget {
+  @override
+  _HeaterAppState createState() => _HeaterAppState();
+}
+
+class _HeaterAppState extends State<HeaterApp> {
+  bool _isLoggedIn = false;
+
+  void initState() {
+    _checkIfLoggedIn();
+    super.initState();
+  }
+
+  void _checkIfLoggedIn() async {
+    // check if token is there
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    var token = localStorage.getString('token');
+    if (token != null) {
+      setState(() {
+        _isLoggedIn = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,12 +64,13 @@ class HeaterApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: colorPrimaryLight),
           )),
-      initialRoute: '/login',
+      initialRoute: _isLoggedIn ? '/dashboard' : '/login',
       routes: {
         LoginScreen.routeName: (ctx) => LoginScreen(),
         SignupScreen.routeName: (ctx) => SignupScreen(),
         DashboardScreen.routeName: (ctx) => DashboardScreen(),
-        UsageScreen.routeName: (ctx) => UsageScreen()
+        UsageScreen.routeName: (ctx) => UsageScreen(),
+        StatisticScreen.routeName: (ctx) => StatisticScreen(),
       },
     );
   }

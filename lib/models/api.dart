@@ -40,7 +40,7 @@ class CallApi {
   }
 
   getDataWithToken(apiUrl) async {
-    var fullUrl = _url + apiUrl;
+    var fullUrl = _api + apiUrl;
     var headers = {
       'Authorization': 'Bearer ' + await _getToken(),
       'Content-type': 'application/json',

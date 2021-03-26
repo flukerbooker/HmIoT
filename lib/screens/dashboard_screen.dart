@@ -9,7 +9,7 @@ class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
 
   Future _getAllRoom() async {
-    var data = await CallApi().getDataWithoutToken('getDeviceList');
+    var data = await CallApi().getDataWithToken('getDeviceList');
     var jsonData = json.decode(data.body);
     print(jsonData);
     // Room allRoom = Room(
