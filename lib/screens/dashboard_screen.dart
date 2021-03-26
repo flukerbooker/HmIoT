@@ -5,6 +5,8 @@ import 'package:hmiot/constants.dart';
 import 'package:hmiot/models/api.dart';
 import 'package:hmiot/widgets/room_item.dart';
 
+import 'login_screen.dart';
+
 class DashboardScreen extends StatelessWidget {
   static const routeName = '/dashboard';
 
@@ -28,6 +30,20 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, LoginScreen.routeName);
+                },
+                child: Icon(
+                  Icons.logout,
+                  size: 26.0,
+                ),
+              )),
+        ],
         elevation: 0,
       ),
       body: FutureBuilder(
