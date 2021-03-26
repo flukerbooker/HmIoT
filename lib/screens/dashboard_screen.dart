@@ -33,16 +33,9 @@ class DashboardScreen extends StatelessWidget {
       body: FutureBuilder(
           future: _getAllRoom(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            print(snapshot.data[0]["id"]);
             if (snapshot.data == null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: CircularProgressIndicator(),
-                  )
-                ],
+              return Center(
+                child: CircularProgressIndicator(),
               );
             } else {
               return ListView.builder(
