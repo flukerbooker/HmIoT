@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hmiot/constants.dart';
 
 class UsagePriceCard extends StatelessWidget {
-  final String totalPrice;
+  final int totalPrice;
 
   UsagePriceCard(this.totalPrice);
 
@@ -53,7 +53,7 @@ class UsagePriceCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              totalPrice + ' Baht',
+                              '$totalPrice Baht',
                               style: Theme.of(context).textTheme.headline4,
                             ),
                             const Text('You could save it by adjust the energy',

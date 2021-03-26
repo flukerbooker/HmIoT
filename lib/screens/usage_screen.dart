@@ -29,7 +29,7 @@ class UsageScreen extends StatelessWidget {
       monthDescription: '',
       totalTodayUsed: jsonData['results']['value'],
       totalMonthUsed: null,
-      totalPrice: null,
+      totalPrice: jsonData['results']['price'],
       weeks: null,
       days: null,
     );
@@ -80,7 +80,7 @@ class UsageScreen extends StatelessWidget {
                         colors),
                     Text("Total Price",
                         style: Theme.of(context).textTheme.headline4),
-                    UsagePriceCard(usageData[0].totalPrice),
+                    UsagePriceCard(snapshot.data.totalPrice),
                   ],
                 ),
               );

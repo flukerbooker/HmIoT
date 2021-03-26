@@ -18,7 +18,7 @@ final dummyData = [
     monthDescription: '+1% than last month',
     totalTodayUsed: 93,
     totalMonthUsed: 2808,
-    totalPrice: '1523',
+    totalPrice: 1523,
     weeks: {
       'week1': {
         1: {'totalUsed': 93.6},
@@ -103,7 +103,7 @@ final dummyData = [
     monthDescription: '-3% than last month',
     totalTodayUsed: 83,
     totalMonthUsed: 2508,
-    totalPrice: '1368',
+    totalPrice: 1368,
     weeks: {
       'week1': {
         'day1': {'totalUsed': 83.6},
@@ -188,7 +188,7 @@ final dummyData = [
       monthDescription: '+2% than last month',
       totalTodayUsed: 95,
       totalMonthUsed: 2865,
-      totalPrice: '1602',
+      totalPrice: 1602,
       weeks: {
         'week1': {
           'day1': {'totalUsed': 95.5},
@@ -272,7 +272,7 @@ final dummyData = [
       monthDescription: '-6% than last month',
       totalTodayUsed: 78,
       totalMonthUsed: 2343,
-      totalPrice: '1193',
+      totalPrice: 1193,
       weeks: {
         'week1': {
           'day1': {'totalUsed': 78.1},
@@ -356,7 +356,7 @@ final dummyData = [
       monthDescription: '-2% than yesterday',
       totalTodayUsed: 86,
       totalMonthUsed: 2586,
-      totalPrice: '1407',
+      totalPrice: 1407,
       weeks: {
         'week1': {
           'day1': {'totalUsed': 86.2},

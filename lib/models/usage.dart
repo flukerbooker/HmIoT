@@ -8,18 +8,19 @@ class UsageData {
   final String monthDescription;
   final int totalTodayUsed;
   final int totalMonthUsed;
-  final String totalPrice;
+  final int totalPrice;
   final Map<String, dynamic> weeks;
   final Map<int, double> days;
 
-  UsageData(
-      {@required this.id,
-      @required this.room,
-      @required this.todayDescription,
-      @required this.monthDescription,
-      @required this.totalTodayUsed,
-      @required this.totalMonthUsed,
-      @required this.totalPrice,
-      @required this.weeks,
-      @required this.days,});
+  UsageData({
+    @required this.id,
+    @required this.room,
+    @required this.todayDescription,
+    @required this.monthDescription,
+    @required this.totalTodayUsed,
+    @required this.totalMonthUsed,
+    @required this.totalPrice,
+    @required this.weeks,
+    @required this.days,
+  });
 }
