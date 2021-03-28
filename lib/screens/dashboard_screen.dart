@@ -14,19 +14,36 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
-    with SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin {
+  Future allRoom;
   Future _getAllRoom() async {
     var data = await CallApi().getDataWithToken('getDeviceList');
-    var jsonData = json.decode(data.body);
-    print(jsonData);
-    return jsonData['0'];
+    var roomData = json.decode(data.body);
+    print(roomData);
+    return roomData['0'];
+  }
+
+  void refreshRoom() {
+    setState(() {
+      allRoom = _getAllRoom();
+    });
   }
 
   static const _indicatorSize = 70.0;
   bool _renderCompleteState = false;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    refreshRoom();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
@@ -56,7 +73,9 @@ class _DashboardScreenState extends State<DashboardScreen>
             } else {
               return CustomRefreshIndicator(
                 offsetToArmed: _indicatorSize,
-                onRefresh: _refreshAllRoom,
+                onRefresh: () async {
+                  refreshRoom();
+                },
                 completeStateDuration: const Duration(seconds: 2),
                 child: ListView.builder(
                   itemCount: snapshot.data.length,
@@ -153,9 +172,5 @@ class _DashboardScreenState extends State<DashboardScreen>
             }
           }),
     );
-  }
-
-  Future<Null> _refreshAllRoom() async {
-    await _getAllRoom();
   }
 }
