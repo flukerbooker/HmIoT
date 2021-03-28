@@ -19,7 +19,7 @@ class UsageScreen extends StatelessWidget {
     final roomId = routeArgs['id'];
     print(roomId);
     var data = await CallApi()
-        .getDataWithToken('getUsage?type=day/month&date=$today&id=$roomId');
+        .getDataWithToken('getUsage?type=day&date=$today&id=$roomId');
     var jsonData = json.decode(data.body);
     print(jsonData);
     UsageData usagesDataToday = UsageData(
