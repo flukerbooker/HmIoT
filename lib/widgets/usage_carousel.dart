@@ -6,7 +6,7 @@ import 'package:hmiot/constants.dart';
 import 'package:hmiot/models/usageGraph.dart';
 import '../screens/statistic_screen.dart';
 import 'package:intl/intl.dart';
-import 'usage_graph2.dart';
+import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
   final String usageId;
