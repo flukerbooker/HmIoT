@@ -84,7 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         snapshot.data[index]["id"],
                         snapshot.data[index]["name"],
                         snapshot.data[index]["change"],
-                        snapshot.data[index]["change"] > 50
+                        double.parse(snapshot.data[index]["change"]) > 0
                             ? colorOrangeRed
                             : colorGreen,
                         snapshot.data[index]["value"]);

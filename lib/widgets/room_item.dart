@@ -6,7 +6,7 @@ import 'package:hmiot/screens/usage_screen.dart';
 class RoomItem extends StatelessWidget {
   final int id;
   final String name;
-  final int description;
+  final String description;
   final Color colors;
   final int usage;
 
@@ -24,6 +24,7 @@ class RoomItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatDescription = double.parse(description);
     return Card(
         margin: EdgeInsets.only(bottom: 1),
         child: ListTile(
@@ -41,7 +42,7 @@ class RoomItem extends StatelessWidget {
               SizedBox(
                 width: 5,
               ),
-              Text('$description% than yesterday',
+              Text('$formatDescription% than yesterday',
                   style: TextStyle(color: colors))
             ],
           ),
