@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class TodayUsageGraph {
   final DateTime day;
-  final double value;
+  final int value;
 
   TodayUsageGraph({
     @required this.day,
@@ -12,7 +12,7 @@ class TodayUsageGraph {
 
 class MonthUsageGraph {
   final DateTime week;
-  final double value;
+  final int value;
 
   MonthUsageGraph({
     @required this.week,

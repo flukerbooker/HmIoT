@@ -13,15 +13,15 @@ class UsageScreen extends StatelessWidget {
   Future<UsageData> _getUsageDataToday(BuildContext context) async {
     DateTime now = DateTime.now();
     String today = DateFormat('yyyy-MM-dd').format(now);
-    print(today);
+    // print(today);
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
     final roomId = routeArgs['id'];
-    print(roomId);
+    // print(roomId);
     var data = await CallApi()
-        .getDataWithToken('getUsage?type=day&date=$today&id=$roomId');
+        .getDataWithToken('auth/getUsage?type=day&date=$today&id=$roomId');
     var jsonData = json.decode(data.body);
-    print(jsonData);
+    // print(jsonData);
     UsageData usagesDataToday = UsageData(
       id: jsonData['device_id'],
       room: null,
@@ -34,6 +34,16 @@ class UsageScreen extends StatelessWidget {
       days: null,
     );
     return usagesDataToday;
+  }
+
+  Future _getUsageGraphToday(BuildContext context) async {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
+    final roomId = routeArgs['id'];
+    var data = await CallApi().getDataWithToken('dashboardUpdate?id=$roomId');
+    var jsonData = json.decode(data.body);
+    //print(jsonData);
+    return jsonData;
   }
 
   @override
@@ -53,13 +63,16 @@ class UsageScreen extends StatelessWidget {
           title: Text(roomName),
         ),
         body: FutureBuilder(
-          future: _getUsageDataToday(context),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          future: Future.wait(
+              [_getUsageDataToday(context), _getUsageGraphToday(context)]),
+          builder:
+              (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
             if (snapshot.data == null) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             } else {
+              List<dynamic> usage = snapshot.data;
               return Container(
                 margin: EdgeInsets.only(
                     top: size.height * 0.03,
@@ -71,15 +84,18 @@ class UsageScreen extends StatelessWidget {
                     Text("Energy Usage",
                         style: Theme.of(context).textTheme.headline4),
                     UsageCarousel(
-                        snapshot.data.id,
-                        snapshot.data.totalTodayUsed,
-                        usageData[0].totalMonthUsed,
+                        usage[0].id,
+                        usage[0].totalTodayUsed,
+                        usage[1]['thisYear'][12]['value'],
                         '$todayDescription% than yesterday',
                         usageData[0].monthDescription,
+                        usage[1]['last7Days'],
+                        usage[1]['last4weeks'],
+                        usage[1]['thisYear'],
                         colors),
                     Text("Total Price",
                         style: Theme.of(context).textTheme.headline4),
-                    UsagePriceCard(snapshot.data.totalPrice),
+                    UsagePriceCard(usage[0].totalPrice),
                   ],
                 ),
               );

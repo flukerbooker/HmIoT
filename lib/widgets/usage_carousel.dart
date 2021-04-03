@@ -4,8 +4,6 @@ import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:hmiot/constants.dart';
 import 'package:hmiot/models/usageGraph.dart';
-import '../screens/statistic_screen.dart';
-import 'package:intl/intl.dart';
 import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
@@ -14,15 +12,25 @@ class UsageCarousel extends StatelessWidget {
   final int totalMonthUsage;
   final String todayDescription;
   final String monthDescription;
+  final List<dynamic> day;
+  final List<dynamic> week;
+  final List<dynamic> month;
   final Color colors;
 
-  UsageCarousel(this.usageId, this.totalTodayUsage, this.totalMonthUsage,
-      this.todayDescription, this.monthDescription, this.colors);
+  UsageCarousel(
+      this.usageId,
+      this.totalTodayUsage,
+      this.totalMonthUsage,
+      this.todayDescription,
+      this.monthDescription,
+      this.day,
+      this.week,
+      this.month,
+      this.colors);
 
   Widget buildUsageCard(BuildContext context, String title, int usage,
       String description, Color colors, Widget graph) {
     Size size = MediaQuery.of(context).size;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -57,9 +65,7 @@ class UsageCarousel extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         onPressed: () {
-                          Navigator.of(context).push(new MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  new StatisticScreen()));
+                          Navigator.of(context).pushNamed('/usage/statistic');
                         },
                         child: Row(
                           children: [
@@ -123,8 +129,6 @@ class UsageCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    DateTime now = DateTime.now();
-    String today = DateFormat('yyyy-MM-dd').format(now);
     return Container(
       height: size.height * 0.52,
       child: CarouselSlider(
@@ -138,12 +142,16 @@ class UsageCarousel extends StatelessWidget {
               TodayUsageGraphWidget(
                 todayUsageGraph: [
                   TodayUsageGraph(
-                      day: DateTime.parse(today).subtract(Duration(days: 2)),
-                      value: 84),
+                      day: DateTime.parse(day[7]['date'])
+                          .subtract(Duration(days: 2)),
+                      value: day[5]['value']),
                   TodayUsageGraph(
-                      day: DateTime.parse(today).subtract(Duration(days: 1)),
-                      value: 76),
-                  TodayUsageGraph(day: DateTime.parse(today), value: 78),
+                      day: DateTime.parse(day[7]['date'])
+                          .subtract(Duration(days: 1)),
+                      value: day[6]['value']),
+                  TodayUsageGraph(
+                      day: DateTime.parse(day[7]['date']),
+                      value: day[7]['value']),
                 ],
               )),
           buildUsageCard(
@@ -155,15 +163,20 @@ class UsageCarousel extends StatelessWidget {
               MonthUsageGraphWidget(
                 monthUsageGraph: [
                   MonthUsageGraph(
-                      week: DateTime.parse(today).subtract(Duration(days: 21)),
-                      value: 411),
+                      week: DateTime.parse(week[0]['date']),
+                      value: week[0]['value']),
                   MonthUsageGraph(
-                      week: DateTime.parse(today).subtract(Duration(days: 14)),
-                      value: 291),
+                      week: DateTime.parse(week[1]['date']),
+                      value: week[1]['value']),
                   MonthUsageGraph(
-                      week: DateTime.parse(today).subtract(Duration(days: 7)),
-                      value: 362),
-                  MonthUsageGraph(week: DateTime.parse(today), value: 324),
+                      week: DateTime.parse(week[2]['date']),
+                      value: week[2]['value']),
+                  MonthUsageGraph(
+                      week: DateTime.parse(week[3]['date']),
+                      value: week[3]['value']),
+                  MonthUsageGraph(
+                      week: DateTime.parse(week[4]['date']),
+                      value: week[4]['value']),
                 ],
               ))
         ],
