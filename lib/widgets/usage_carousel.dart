@@ -4,6 +4,7 @@ import 'package:flutter_carousel_slider/carousel_slider_indicators.dart';
 import 'package:flutter_carousel_slider/carousel_slider_transforms.dart';
 import 'package:hmiot/constants.dart';
 import 'package:hmiot/models/usageGraph.dart';
+import 'package:hmiot/screens/statistic_screen.dart';
 import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
@@ -27,6 +28,13 @@ class UsageCarousel extends StatelessWidget {
       this.week,
       this.month,
       this.colors);
+
+  void selectStatistic(BuildContext context) {
+    Navigator.of(context).pushNamed(StatisticScreen.routeName, arguments: {
+      'month': month,
+      'value': month,
+    });
+  }
 
   Widget buildUsageCard(BuildContext context, String title, int usage,
       String description, Color colors, Widget graph) {
@@ -64,9 +72,7 @@ class UsageCarousel extends StatelessWidget {
                       FlatButton(
                         padding: EdgeInsets.zero,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/usage/statistic');
-                        },
+                        onPressed: () => selectStatistic(context),
                         child: Row(
                           children: [
                             const Text(

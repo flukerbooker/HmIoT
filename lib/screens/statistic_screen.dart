@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hmiot/models/statistic.dart';
-import 'package:hmiot/widgets/statistic_graph.dart';
-
+import 'package:hmiot/widgets/statistic_graph_container.dart';
 import '../constants.dart';
 
 class StatisticScreen extends StatelessWidget {
   static const routeName = '/usage/statistic';
-  final List<Statistic> statistic = [
-    Statistic(count: 1262, month: 'Jan'),
-    Statistic(count: 1482, month: 'Feb'),
-    Statistic(count: 1654, month: 'Mar'),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
+    final month = routeArgs['month'];
+    final value = routeArgs['value'];
+
     return Scaffold(
       appBar: AppBar(
         title: Text("History"),
@@ -28,11 +26,7 @@ class StatisticScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline6),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              height: 300,
-              child: StatisticGraph(statistic: statistic),
-            ),
+            StatisticGraphContainer(month: month, value: value),
             Container(
               height: 350,
               width: double.infinity,

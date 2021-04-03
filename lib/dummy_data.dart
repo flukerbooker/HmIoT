@@ -428,9 +428,3 @@ final dummyData = [
         24: 3.6,
       })
 ];
-
-final dummyStatistic = [
-  Statistic(count: 1450, month: 'Jan'),
-  Statistic(count: 1450, month: 'Feb'),
-  Statistic(count: 1450, month: 'March'),
-];

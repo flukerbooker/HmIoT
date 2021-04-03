@@ -9,14 +9,16 @@ class StatisticGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<charts.Series<Statistic, String>> series = [
+    List<charts.Series<Statistic, DateTime>> series = [
       charts.Series(
-        id: "Statistic",
-        data: statistic,
-        domainFn: (Statistic series, _) => series.month,
-        measureFn: (Statistic series, _) => series.count
-      )
+          id: "Statistic",
+          data: statistic,
+          domainFn: (Statistic series, _) => series.month,
+          measureFn: (Statistic series, _) => series.value)
     ];
-    return charts.BarChart(series);
+    return charts.TimeSeriesChart(
+      series,
+      defaultRenderer: new charts.BarRendererConfig<DateTime>(),
+    );
   }
 }
