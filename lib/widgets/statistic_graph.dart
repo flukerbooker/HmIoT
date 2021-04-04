@@ -14,11 +14,15 @@ class StatisticGraph extends StatelessWidget {
           id: "Statistic",
           data: statistic,
           domainFn: (Statistic series, _) => series.month,
-          measureFn: (Statistic series, _) => series.value)
+          measureFn: (Statistic series, _) => series.value,
+          labelAccessorFn: (Statistic series, _) =>
+              '${series.value.toString()}')
     ];
     return charts.TimeSeriesChart(
       series,
-      defaultRenderer: new charts.BarRendererConfig<DateTime>(),
+      defaultRenderer: new charts.BarRendererConfig<DateTime>(
+        barRendererDecorator: new charts.BarLabelDecorator<DateTime>(),
+      ),
     );
   }
 }

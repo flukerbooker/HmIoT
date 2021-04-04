@@ -10,13 +10,18 @@ class TodayUsageGraphWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<charts.Series<TodayUsageGraph, DateTime>> series = [
       charts.Series(
-          id: "TodayUsageGraph",
-          data: todayUsageGraph,
-          domainFn: (TodayUsageGraph series, _) => series.day,
-          measureFn: (TodayUsageGraph series, _) => series.value)
+        id: "TodayUsageGraph",
+        data: todayUsageGraph,
+        domainFn: (TodayUsageGraph series, _) => series.day,
+        measureFn: (TodayUsageGraph series, _) => series.value,
+        labelAccessorFn: (TodayUsageGraph series, _) =>
+            '${series.value.toString()}',
+      )
     ];
     return charts.TimeSeriesChart(series,
-        defaultRenderer: new charts.BarRendererConfig<DateTime>());
+        defaultRenderer: new charts.BarRendererConfig<DateTime>(
+          barRendererDecorator: new charts.BarLabelDecorator<DateTime>(),
+        ));
   }
 }
 
@@ -31,11 +36,15 @@ class MonthUsageGraphWidget extends StatelessWidget {
           id: "MonthUsageGraph",
           data: monthUsageGraph,
           domainFn: (MonthUsageGraph series, _) => series.week,
-          measureFn: (MonthUsageGraph series, _) => series.value)
+          measureFn: (MonthUsageGraph series, _) => series.value,
+          labelAccessorFn: (MonthUsageGraph series, _) =>
+              '${series.value.toString()}')
     ];
     return charts.TimeSeriesChart(
       series,
-      defaultRenderer: new charts.BarRendererConfig<DateTime>(),
+      defaultRenderer: new charts.BarRendererConfig<DateTime>(
+        barRendererDecorator: new charts.BarLabelDecorator<DateTime>(),
+      ),
     );
   }
 }
