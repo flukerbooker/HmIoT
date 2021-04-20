@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CallApi {
   //API URL
   final String _url = 'http://zielu922.vot.pl/api/auth/';
-  final String _api = 'http://zielu922.vot.pl/api/';
 
   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
@@ -29,18 +28,8 @@ class CallApi {
     return await http.post(fullUrl, body: jsonEncode(data), headers: headers);
   }
 
-  getDataWithoutToken(apiUrl) async {
-    // var fullUrl = _url + apiUrl;
-    var fullUrl = _api + apiUrl;
-    var headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-    };
-    return await http.get(fullUrl, headers: headers);
-  }
-
   getDataWithToken(apiUrl) async {
-    var fullUrl = _api + apiUrl;
+    var fullUrl = _url + apiUrl;
     var headers = {
       'Authorization': 'Bearer ' + await _getToken(),
       'Content-type': 'application/json',

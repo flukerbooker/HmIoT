@@ -158,7 +158,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                     padding: EdgeInsets.only(
                                         top: 8, bottom: 8, left: 10, right: 10),
                                     child: Text(
-                                      _isLoading ? 'Creating...' : 'Create account',
+                                      _isLoading
+                                          ? 'Creating...'
+                                          : 'Create account',
                                       textDirection: TextDirection.ltr,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -172,9 +174,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   disabledColor: Colors.grey,
                                   shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                      new BorderRadius.circular(20.0)),
-                                  onPressed: _isLoading ? null :  _handleLogin
-                              ),
+                                          new BorderRadius.circular(20.0)),
+                                  onPressed: _isLoading ? null : _handleLogin),
                             ),
                           ],
                         ),
@@ -212,21 +213,22 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
   void _handleLogin() async {
     setState(() {
       _isLoading = true;
     });
 
     var data = {
-      'name' : firstNameController.text,
-      'email' : mailController.text,
-      'password' : passwordController.text,
-      'password_confirmation' : passwordController.text,
+      'name': firstNameController.text,
+      'email': mailController.text,
+      'password': passwordController.text,
+      'password_confirmation': passwordController.text,
     };
 
     var res = await CallApi().postData(data, 'register');
     var body = json.decode(res.body);
-    if(body['success']){
+    if (body['success']) {
       print(body);
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
@@ -238,8 +240,5 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       _isLoading = false;
     });
-
-
-
   }
 }

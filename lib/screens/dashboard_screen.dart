@@ -16,7 +16,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with AutomaticKeepAliveClientMixin {
   Future _getAllRoom() async {
-    var data = await CallApi().getDataWithToken('auth/getDeviceList');
+    var data = await CallApi().getDataWithToken('getDeviceList');
     var roomData = json.decode(data.body);
     // print(roomData);
     return roomData['0'];
