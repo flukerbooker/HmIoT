@@ -19,24 +19,34 @@ class _LoginScreenState extends State<LoginScreen> {
   ScaffoldState scaffoldState;
 
   void _showMsg(msg) {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final snackBar = SnackBar(
-      content: Text(msg),
-      action: SnackBarAction(
-        label: 'Close',
-        onPressed: () {
-          // Some code to undo the change!
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Something went wrong",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            content: Text(
+              msg,
+              style: TextStyle(color: Colors.black54),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16)))
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      key: _scaffoldKey,
       body: Container(
         child: Stack(
           children: <Widget>[
