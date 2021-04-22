@@ -228,13 +228,19 @@ class _SignupScreenState extends State<SignupScreen> {
 
     var res = await CallApi().postData(data, 'register');
     var body = json.decode(res.body);
-    if (body['success']) {
-      print(body);
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString('token', body['token']);
-      localStorage.setString('user', json.encode(body['user']));
+    print(body);
+    if (body['success'] != null) {
+      if (body['success']) {
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        localStorage.setString('token', body['token']);
+        localStorage.setString('user', json.encode(body['user']));
 
-      Navigator.pushReplacementNamed(context, "/login");
+        Navigator.pushReplacementNamed(context, "/login");
+      } else {
+        print(body['errors']['name'][0]);
+      }
+    } else {
+      print(body['errors']['name'][0]);
     }
 
     setState(() {
