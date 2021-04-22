@@ -234,7 +234,7 @@ class _SignupScreenState extends State<SignupScreen> {
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
 
-      Navigator.pushReplacementNamed(context, "/dashboard");
+      Navigator.pushReplacementNamed(context, "/login");
     }
 
     setState(() {
