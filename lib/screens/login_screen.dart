@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/signup_screen.dart';
 import '../models/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,9 +13,25 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  ScaffoldState scaffoldState;
+  final _form = GlobalKey<FormState>();
+  FocusNode passwordFocusNode;
+
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    passwordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    passwordFocusNode.dispose();
+  }
 
   void _showMsg(msg) {
     showDialog(
@@ -81,110 +96,142 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            /////////////  Email//////////////
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: mailController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
+                        child: Form(
+                          key: _form,
+                          child: Column(
+                            children: <Widget>[
+                              /////////////  Email//////////////
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(passwordFocusNode);
+                                },
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Email",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Email",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                validator: (value) {
+                                  String pattern =
+                                      r'(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$)';
+                                  RegExp regExp = RegExp(pattern);
+                                  if (value.isEmpty) {
+                                    return 'Email is Required';
+                                  } else if (!regExp.hasMatch(value)) {
+                                    return "Invalid Email";
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _authData["email"] = value;
+                                },
                               ),
-                            ),
 
-                            /////////////// password////////////////////
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              cursorColor: Color(0xFF9b9b9b),
-                              controller: passwordController,
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.vpn_key,
-                                  color: Colors.grey,
+                              /////////////// password////////////////////
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                focusNode: passwordFocusNode,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.vpn_key,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Password",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Password",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Password is required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _authData["password"] = value;
+                                },
                               ),
-                            ),
-                            /////////////  LogIn Botton///////////////////
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: FlatButton(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 8,
-                                          bottom: 8,
-                                          left: 10,
-                                          right: 10),
-                                      child: Text(
-                                        _isLoading ? 'Loading...' : 'Login',
-                                        textDirection: TextDirection.ltr,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15.0,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.normal,
+                              /////////////  LogIn Botton///////////////////
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: FlatButton(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 8,
+                                            bottom: 8,
+                                            left: 10,
+                                            right: 10),
+                                        child: Text(
+                                          _isLoading ? 'Loading...' : 'Login',
+                                          textDirection: TextDirection.ltr,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
+                                      color: Color(0xFF8dc63f),
+                                      disabledColor: Colors.grey,
+                                      shape: new RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(20.0)),
+                                      onPressed: _isLoading ? null : _login,
                                     ),
-                                    color: Color(0xFF8dc63f),
-                                    disabledColor: Colors.grey,
-                                    shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(20.0)),
-                                    onPressed: _isLoading ? null : _login,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: FlatButton(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 8,
-                                          bottom: 8,
-                                          left: 10,
-                                          right: 10),
-                                      child: Text(
-                                        'Register',
-                                        textDirection: TextDirection.ltr,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15.0,
-                                          decoration: TextDecoration.none,
-                                          fontWeight: FontWeight.normal,
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: FlatButton(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 8,
+                                            bottom: 8,
+                                            left: 10,
+                                            right: 10),
+                                        child: Text(
+                                          'Register',
+                                          textDirection: TextDirection.ltr,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                            decoration: TextDecoration.none,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
+                                      color: Color(0xFF8dc63f),
+                                      disabledColor: Colors.grey,
+                                      shape: new RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(20.0)),
+                                      onPressed: _signUp,
                                     ),
-                                    color: Color(0xFF8dc63f),
-                                    disabledColor: Colors.grey,
-                                    shape: new RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(20.0)),
-                                    onPressed: _signUp,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -199,19 +246,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _signUp() {
-    Navigator.push(
-        context, new MaterialPageRoute(builder: (context) => SignupScreen()));
+    Navigator.pushReplacementNamed(context, "/signup");
   }
 
   void _login() async {
+    if (!_form.currentState.validate()) {
+      return;
+    }
+    _form.currentState.save();
+
     setState(() {
       _isLoading = true;
     });
 
-    var data = {
-      'email': mailController.text,
-      'password': passwordController.text
-    };
+    var data = {'email': _authData['email'], 'password': _authData['password']};
 
     var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body);

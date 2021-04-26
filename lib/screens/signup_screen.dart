@@ -1,23 +1,52 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hmiot/screens/login_screen.dart';
 import '../models/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupScreen extends StatefulWidget {
-  static const routeName = '/signin';
+  static const routeName = '/signup';
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-
   bool _isLoading = false;
+
+  final _form = GlobalKey<FormState>();
+
+  TextEditingController passwordController;
+
+  FocusNode lastnameFocusNode;
+  FocusNode emailFocusNode;
+  FocusNode passwordFocusNode;
+  FocusNode confirmPasswordFocusNode;
+
+  Map<String, String> _registerData = {
+    'firstname': '',
+    'lastname': '',
+    'email': '',
+    'password': ''
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    passwordController = TextEditingController();
+    lastnameFocusNode = FocusNode();
+    emailFocusNode = FocusNode();
+    passwordFocusNode = FocusNode();
+    confirmPasswordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    passwordController.dispose();
+    lastnameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    confirmPasswordFocusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,129 +84,213 @@ class _SignupScreenState extends State<SignupScreen> {
                           borderRadius: BorderRadius.circular(15)),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            /////////////// name////////////
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: firstNameController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
+                        child: Form(
+                          key: _form,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              /////////////// name////////////
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Firstname",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Firstname",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(lastnameFocusNode);
+                                },
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Firstname is Required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _registerData["firstname"] = value;
+                                },
                               ),
-                            ),
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: lastNameController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Lastname",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Lastname",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                focusNode: lastnameFocusNode,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(emailFocusNode);
+                                },
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Lastname is Required';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _registerData["lastname"] = value;
+                                },
                               ),
-                            ),
 
-                            /////////////// Email ////////////
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: mailController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.mail,
-                                  color: Colors.grey,
+                              /////////////// Email ////////////
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.mail,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Email",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Email ",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                focusNode: emailFocusNode,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(passwordFocusNode);
+                                },
+                                validator: (value) {
+                                  String pattern =
+                                      r'(^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$)';
+                                  RegExp regExp = RegExp(pattern);
+                                  if (value.isEmpty) {
+                                    return 'Email is Required';
+                                  } else if (!regExp.hasMatch(value)) {
+                                    return "Invalid Email";
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _registerData["email"] = value;
+                                },
                               ),
-                            ),
 
-                            /////////////// password ////////////
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              cursorColor: Color(0xFF9b9b9b),
-                              controller: passwordController,
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.vpn_key,
-                                  color: Colors.grey,
+                              /////////////// password ////////////
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                obscureText: true,
+                                controller: passwordController,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.vpn_key,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Password",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
                                 ),
-                                hintText: "Password",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
+                                focusNode: passwordFocusNode,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(confirmPasswordFocusNode);
+                                },
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "Password is Required";
+                                  } else if (value.length < 8) {
+                                    return "Password is too short!";
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _registerData['password'] = value;
+                                },
                               ),
-                            ),
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: phoneController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.mobile_screen_share,
-                                  color: Colors.grey,
-                                ),
-                                hintText: "Phone",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
 
-                            /////////////// SignUp Button ////////////
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: FlatButton(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 8, bottom: 8, left: 10, right: 10),
-                                    child: Text(
-                                      _isLoading
-                                          ? 'Creating...'
-                                          : 'Create account',
-                                      textDirection: TextDirection.ltr,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15.0,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.normal,
+                              TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                style: TextStyle(color: Color(0xFF000000)),
+                                cursorColor: Color(0xFF9b9b9b),
+                                keyboardType: TextInputType.text,
+                                obscureText: true,
+                                focusNode: confirmPasswordFocusNode,
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.verified_user,
+                                    color: Colors.grey,
+                                  ),
+                                  hintText: "Confirm Password",
+                                  hintStyle: TextStyle(
+                                      color: Color(0xFF9b9b9b),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                validator: (value) {
+                                  if (value != passwordController.text) {
+                                    return 'Passwords do not match!';
+                                  }
+                                  return null;
+                                },
+                              ),
+
+                              /////////////// SignUp Button ////////////
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: FlatButton(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 8,
+                                          bottom: 8,
+                                          left: 10,
+                                          right: 10),
+                                      child: Text(
+                                        _isLoading
+                                            ? 'Creating...'
+                                            : 'Create account',
+                                        textDirection: TextDirection.ltr,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          decoration: TextDecoration.none,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  color: Colors.red,
-                                  disabledColor: Colors.grey,
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(20.0)),
-                                  onPressed: _isLoading ? null : _handleLogin),
-                            ),
-                          ],
+                                    color: Colors.red,
+                                    disabledColor: Colors.grey,
+                                    shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(20.0)),
+                                    onPressed:
+                                        _isLoading ? null : _handleSignup),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -187,10 +300,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                          Navigator.pushReplacementNamed(context, "/login");
                         },
                         child: Text(
                           'Already have an Account',
@@ -214,16 +324,20 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void _handleLogin() async {
+  void _handleSignup() async {
+    if (!_form.currentState.validate()) {
+      return;
+    }
+    _form.currentState.save();
     setState(() {
       _isLoading = true;
     });
 
     var data = {
-      'name': firstNameController.text,
-      'email': mailController.text,
-      'password': passwordController.text,
-      'password_confirmation': passwordController.text,
+      'name': _registerData['firstname'] + " " + _registerData['lastname'],
+      'email': _registerData['email'],
+      'password': _registerData['password'],
+      'password_confirmation': _registerData['password'],
     };
 
     var res = await CallApi().postData(data, 'register');

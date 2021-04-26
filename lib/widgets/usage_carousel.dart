@@ -8,7 +8,7 @@ import 'package:hmiot/screens/statistic_screen.dart';
 import 'usage_graph.dart';
 
 class UsageCarousel extends StatelessWidget {
-  final String usageId;
+  final int usageId;
   final int totalTodayUsage;
   final int totalMonthUsage;
   final String todayDescription;
@@ -16,7 +16,7 @@ class UsageCarousel extends StatelessWidget {
   final List<dynamic> day;
   final List<dynamic> week;
   final List<dynamic> month;
-  final Color colors;
+  final List<Color> colors;
 
   UsageCarousel(
       this.usageId,
@@ -135,6 +135,7 @@ class UsageCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var currentDay = DateTime.parse(day.last['date']);
     return Container(
       height: size.height * 0.52,
       child: CarouselSlider(
@@ -143,29 +144,29 @@ class UsageCarousel extends StatelessWidget {
               context,
               "Today's Used",
               totalTodayUsage,
-              todayDescription,
-              colors,
+              double.parse(todayDescription) > 0
+                  ? '+$todayDescription than yesterday'
+                  : '$todayDescription than yesterday',
+              double.parse(todayDescription) > 0 ? colors[0] : colors[1],
               TodayUsageGraphWidget(
                 todayUsageGraph: [
                   TodayUsageGraph(
-                      day: DateTime.parse(day[7]['date'])
-                          .subtract(Duration(days: 2)),
+                      day: currentDay.subtract(Duration(days: 2)),
                       value: day[5]['value']),
                   TodayUsageGraph(
-                      day: DateTime.parse(day[7]['date'])
-                          .subtract(Duration(days: 1)),
+                      day: currentDay.subtract(Duration(days: 1)),
                       value: day[6]['value']),
-                  TodayUsageGraph(
-                      day: DateTime.parse(day[7]['date']),
-                      value: day[7]['value']),
+                  TodayUsageGraph(day: currentDay, value: day[7]['value']),
                 ],
               )),
           buildUsageCard(
               context,
-              "Monthly Used",
+              "Month's Used",
               totalMonthUsage,
-              monthDescription,
-              colors,
+              double.parse(monthDescription) > 0
+                  ? "+$monthDescription than last month"
+                  : "$monthDescription than last month",
+              double.parse(monthDescription) > 0 ? colors[0] : colors[1],
               MonthUsageGraphWidget(
                 monthUsageGraph: [
                   MonthUsageGraph(

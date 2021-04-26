@@ -1,49 +1,33 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:hmiot/dummy_data.dart';
 import 'package:hmiot/models/api.dart';
 import 'package:hmiot/models/usage.dart';
 import 'package:hmiot/widgets/usage_carousel.dart';
 import 'package:hmiot/widgets/usage_price_card.dart';
-import 'package:intl/intl.dart';
+import '../constants.dart';
 
 class UsageScreen extends StatelessWidget {
   static const routeName = '/usage';
 
-  Future<UsageData> _getUsageDataToday(BuildContext context) async {
-    DateTime now = DateTime.now();
-    String today = DateFormat('yyyy-MM-dd').format(now);
-    // print(today);
+  Future<UsageData> _getUsageData(BuildContext context) async {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
     final roomId = routeArgs['id'];
-    // print(roomId);
-    var data = await CallApi()
-        .getDataWithToken('getUsage?type=day&date=$today&id=$roomId');
-    var jsonData = json.decode(data.body);
-    // print(jsonData);
-    UsageData usagesDataToday = UsageData(
-      id: jsonData['device_id'],
-      room: null,
-      todayDescription: '',
-      monthDescription: '',
-      totalTodayUsed: jsonData['results']['value'],
-      totalMonthUsed: null,
-      totalPrice: jsonData['results']['price'],
-      weeks: null,
-      days: null,
-    );
-    return usagesDataToday;
-  }
+    var usageData =
+        await CallApi().getDataWithToken('dashboardUpdate?id=$roomId');
+    var data = json.decode(usageData.body);
 
-  Future _getUsageGraphToday(BuildContext context) async {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
-    final roomId = routeArgs['id'];
-    var data = await CallApi().getDataWithToken('dashboardUpdate?id=$roomId');
-    var jsonData = json.decode(data.body);
-    //print(jsonData);
-    return jsonData;
+    UsageData usagesData = UsageData(
+        id: data['device_id'],
+        todayDescription: data['last7Days'].last['change'],
+        monthDescription: data['thisYear'].last['change'],
+        totalTodayUsed: data['last7Days'].last['value'],
+        totalMonthUsed: data['thisYear'].last['value'],
+        totalPrice: data['thisYear'].last['price'],
+        days: data['last7Days'],
+        weeks: data['last4weeks'],
+        months: data['thisYear']);
+    return usagesData;
   }
 
   @override
@@ -51,28 +35,19 @@ class UsageScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<dynamic, dynamic>;
-    final roomId = routeArgs['id'];
     final roomName = routeArgs['name'];
-    final todayDescription = routeArgs['description'];
-    final colors = routeArgs['color'];
-    final usageData = dummyData.where((usage) {
-      return usage.room.id == roomId ? true : false;
-    }).toList();
     return Scaffold(
         appBar: AppBar(
           title: Text(roomName),
         ),
         body: FutureBuilder(
-          future: Future.wait(
-              [_getUsageDataToday(context), _getUsageGraphToday(context)]),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+          future: _getUsageData(context),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data == null) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             } else {
-              List<dynamic> usage = snapshot.data;
               return Container(
                 margin: EdgeInsets.only(
                     top: size.height * 0.03,
@@ -84,18 +59,18 @@ class UsageScreen extends StatelessWidget {
                     Text("Energy Usage",
                         style: Theme.of(context).textTheme.headline4),
                     UsageCarousel(
-                        usage[0].id,
-                        usage[0].totalTodayUsed,
-                        usage[1]['thisYear'][12]['value'],
-                        '$todayDescription% than yesterday',
-                        usageData[0].monthDescription,
-                        usage[1]['last7Days'],
-                        usage[1]['last4weeks'],
-                        usage[1]['thisYear'],
-                        colors),
+                        snapshot.data.id,
+                        snapshot.data.totalTodayUsed,
+                        snapshot.data.totalMonthUsed,
+                        snapshot.data.todayDescription,
+                        snapshot.data.monthDescription,
+                        snapshot.data.days,
+                        snapshot.data.weeks,
+                        snapshot.data.months,
+                        [colorOrangeRed, colorGreen]),
                     Text("Total Price",
                         style: Theme.of(context).textTheme.headline4),
-                    UsagePriceCard(usage[0].totalPrice),
+                    UsagePriceCard(snapshot.data.totalPrice),
                   ],
                 ),
               );

@@ -18,7 +18,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   Future _getAllRoom() async {
     var data = await CallApi().getDataWithToken('getDeviceList');
     var roomData = json.decode(data.body);
-    // print(roomData);
     return roomData['0'];
   }
 
